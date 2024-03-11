@@ -1,0 +1,3 @@
+development: <%= ENV['REDIS_URL'] %>
+test: localhost:6379
+production: <%= ENV['REDIS_URL'] %>

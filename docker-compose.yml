@@ -15,8 +15,9 @@ services:
     volumes:
       - .:/usr/src/app
     env_file:
-      - docker/.env/development/db
       - docker/.env/development/web
+      - docker/.env/development/db
+      - docker/.env/development/redis
     environment:
       RAILS_ENV: development
 
@@ -33,6 +34,32 @@ services:
       - docker/.env/development/db
     volumes:
       - db-data:/var/lib/mysql
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+    entrypoint: ./docker/entrypoints/worker-entrypoint.sh
+    depends_on:
+      - web
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    env_file:
+      - docker/.env/development/web
+      - docker/.env/development/db
+      - docker/.env/development/redis
+    environment:
+      RAILS_ENV: development
 
 volumes:
   db-data:
