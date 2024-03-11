@@ -11,10 +11,12 @@ AllCops:
   DisplayStyleGuide: true
   NewCops: enable
   Exclude:
-    - 'bin/**/*'
-    - 'vendor/**/*'
-    - 'tmp/**/*'
-    - 'db/schema.rb'
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "db/schema.rb"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
 
 Style/Documentation:
   Enabled: false
