@@ -2,11 +2,11 @@ require "resque/tasks"
 require "resque/scheduler/tasks"
 
 namespace :resque do
-  task :setup do
+  task setup: :environment do
     require "resque"
   end
 
-  task :setup_schedule => :setup do
+  task setup_schedule: :setup do
     require "resque-scheduler"
 
     # If you want to be able to dynamically change the schedule,
@@ -29,5 +29,5 @@ namespace :resque do
     require "jobs"
   end
 
-  task :scheduler => :setup_schedule
+  task scheduler: :setup_schedule
 end
