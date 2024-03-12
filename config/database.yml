@@ -24,7 +24,9 @@ development:
 
 test:
   <<: *default
-  database: myapp_test
+  database:  <%= ENV.fetch('MYSQL_TEST_DATABASE') %>
+  username:  <%= ENV.fetch('MYSQL_TEST_USER') %>
+  password:  <%= ENV.fetch('MYSQL_TEST_PASSWORD') %>
 
 production:
   <<: *default

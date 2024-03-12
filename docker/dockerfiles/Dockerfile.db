@@ -1,0 +1,5 @@
+FROM mysql:8.0
+COPY ./docker/entrypoints/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
+RUN echo "Dockerfile db working"
+RUN echo $USER
+ENTRYPOINT ["docker-entrypoint.sh"]

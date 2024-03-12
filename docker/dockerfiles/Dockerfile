@@ -16,7 +16,7 @@ RUN apt-get update -qq && \
 COPY Gemfile* /usr/src/app/
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app/
+COPY ../.. /usr/src/app/
 RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
 USER appuser

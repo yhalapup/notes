@@ -2,6 +2,8 @@
 
 set -e
 
+echo "WORKING IN WEB"
+
 if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
 fi
