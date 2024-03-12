@@ -1,4 +1,4 @@
-require 'roar/json/json_api'
+require "roar/json/json_api"
 
 class NotesRepresenter < Roar::Decorator
   include Roar::JSON::JSONAPI.resource :notes
