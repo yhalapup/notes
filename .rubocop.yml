@@ -39,3 +39,11 @@ Metrics/AbcSize:
 
 Rails/ResponseParsedBody:
   Enabled: false
+
+Style/HashSyntax:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
