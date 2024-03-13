@@ -1,0 +1,6 @@
+synchronize_notes_from_other_service:
+  cron: "* * * * *"
+  class: "Cron::NotesSynchronizerJob"
+  queue: high
+  args:
+  description: "This job queues synchronization of notes service"

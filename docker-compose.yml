@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  web:
+  web: &web
     build:
       context: .
       dockerfile: docker/dockerfiles/Dockerfile
@@ -20,10 +20,10 @@ services:
     env_file:
       - docker/.env/development/web
       - docker/.env/development/db
-      - docker/.env/development/redis
       - docker/.env/test/db
     environment:
-      RAILS_ENV: development
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379
 
   db:
     build:
@@ -49,27 +49,28 @@ services:
     ports:
       - "6379:6379"
 
+
   worker:
-    build:
-      context: .
-      dockerfile: docker/dockerfiles/Dockerfile
-      args:
-        USER_ID: ${USER_ID:-0}
-        GROUP_ID: ${GROUP_ID:-0}
+    <<: *web
     entrypoint: ./docker/entrypoints/worker-entrypoint.sh
-    depends_on:
-      - web
-      - db
-      - redis
     ports:
       - "8000:8000"
-    env_file:
-      - docker/.env/development/web
-      - docker/.env/development/db
-      - docker/.env/development/redis
-      - docker/.env/test/db
     environment:
-      RAILS_ENV: development
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379
+
+  scheduler:
+    <<: *web
+    entrypoint: []
+    depends_on:
+      - db
+      - redis
+      - worker
+    command: rake environment resque:scheduler RAILS_ENV=$RAILS_ENV
+    ports: [ ]
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379
 
 volumes:
   db-data:
