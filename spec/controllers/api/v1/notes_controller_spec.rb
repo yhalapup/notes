@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Api::V1::NotesController, type: :controller do
   let(:first_note) { create(:note, title: "First note", content: "text") }
   let(:second_note) { create(:note, title: "Second note", content: "other text") }
+  let(:third_note) { create(:note, title: "Third note", content: "other text") }
 
   let(:response_body) { result.body }
   let(:json) { JSON.parse(response_body) }
@@ -12,8 +13,24 @@ RSpec.describe Api::V1::NotesController, type: :controller do
     let(:result) { get :index, params: params }
     let(:params) { {} }
 
+    before do
+      first_note
+      second_note
+      third_note
+    end
+
     it "responds with proper status 200" do
       expect(result.status).to eq(200)
+    end
+
+    it "provides JSON data" do
+      expect(json["links"]).to eql(
+        {
+          "first" => "/api/v1/notes?page=1", "last" => "/api/v1/notes?page=2",
+          "next" => "/api/v1/notes?page=2", "prev" => "/api/v1/notes", "self" => "/api/v1/notes?page=1"
+        }
+      )
+      expect(json["meta"]).to eql("totalPages" => 2)
     end
   end
 

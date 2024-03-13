@@ -2,7 +2,9 @@ class Api::V1::NotesController < ApplicationController
   before_action :current_record, only: %i[show update destroy]
 
   def index
-    head :ok
+    records, links, total_pages = Utils::Pagination::Handler.new(**pagination_params).execute
+
+    render json: NotesRepresenter.for_collection.prepare(records).to_hash.merge(total_pages, links)
   end
 
   def show
@@ -32,5 +34,12 @@ class Api::V1::NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:title, :content)
+  end
+
+  def pagination_params
+    params.permit(:scope, :page, :path)
+          .with_defaults(scope: Note, page: 1, path: request.path)
+          .to_h
+          .deep_symbolize_keys
   end
 end

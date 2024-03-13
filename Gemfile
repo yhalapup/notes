@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "kaminari-activerecord", "1.2.2"
 gem "mysql2", "~> 0.5"
 gem "puma", "~> 6.4.2", ">= 6.4.2"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
