@@ -207,4 +207,19 @@ RSpec.describe Api::V1::NotesController, type: :controller do
       end
     end
   end
+
+  describe "GET #search" do
+    let(:result) { get :search, params: params }
+    let(:params) { { title: "", content: "text" } }
+
+    before do
+      first_note
+      second_note
+      third_note
+    end
+
+    it "responds with proper status 200" do
+      expect(result.status).to eq(200)
+    end
+  end
 end

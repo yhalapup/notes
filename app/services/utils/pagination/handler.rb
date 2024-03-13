@@ -13,7 +13,7 @@ class Utils::Pagination::Handler
   private
 
   def records
-    @records ||= @scope.page(@page).per(per_page=default_per_page)
+    @records ||= @scope.page(@page).per(default_per_page)
   end
 
   def default_per_page

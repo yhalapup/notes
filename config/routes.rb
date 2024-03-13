@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :notes, only: %i[show index create update destroy]
+      resources :notes, only: %i[show index create update destroy] do
+        get :search, on: :collection
+      end
     end
   end
 

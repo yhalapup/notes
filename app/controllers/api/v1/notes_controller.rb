@@ -26,6 +26,13 @@ class Api::V1::NotesController < ApplicationController
     head :no_content
   end
 
+  def search
+    Notes::Search.new(**search_params).execute
+    records, links, total_pages = Utils::Pagination::Handler.new(**pagination_params).execute
+
+    render json: NotesRepresenter.for_collection.prepare(records).to_hash.merge(total_pages, links)
+  end
+
   private
 
   def current_record
@@ -39,6 +46,12 @@ class Api::V1::NotesController < ApplicationController
   def pagination_params
     params.permit(:scope, :page, :path)
           .with_defaults(scope: Note, page: 1, path: request.path)
+          .to_h
+          .deep_symbolize_keys
+  end
+
+  def search_params
+    params.permit(:title, :content)
           .to_h
           .deep_symbolize_keys
   end
