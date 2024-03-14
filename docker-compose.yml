@@ -72,5 +72,18 @@ services:
       - RAILS_ENV=development
       - REDIS_URL=redis://redis:6379
 
+  externalnotes:
+    build:
+      context: .
+      dockerfile: docker/dockerfiles/Dockerfile.externalnotes
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./externalnotes:/usr/src/app
+
 volumes:
   db-data:

@@ -4,6 +4,6 @@ synchronize_notes_from_other_service:
   queue: high
   description: "This job queues synchronization of notes service"
   args:
-    job_class: Cron::NotesSynchronizerJob
+    job_class: Cron::ExternalNotes::SynchronizerJob
     queue_name: default
     arguments: [ ]
