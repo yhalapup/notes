@@ -10,7 +10,7 @@ class ExternalNotes::Synchronizer
   private
 
   def parse_fetch_request_external_notes
-    response =  ExternalNotes::Api::Client.new.get(path: "")
+    response =  ExternalNotes::Api::Client.new.get(path: "notes")
     JSON.parse(response.body)
   end
 

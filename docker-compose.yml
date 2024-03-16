@@ -9,14 +9,14 @@ services:
       args:
         USER_ID: ${USER_ID:-0}
         GROUP_ID: ${GROUP_ID:-0}
-    entrypoint: ./docker/entrypoints/web-entrypoint.sh
+    entrypoint: /docker/entrypoints/web-entrypoint.sh
     depends_on:
       - db
       - redis
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
+      - ./notes:/usr/src/app
     env_file:
       - docker/.env/development/web
       - docker/.env/development/db
@@ -43,16 +43,14 @@ services:
       - docker/.env/development/db
       - docker/.env/test/db
 
-
   redis:
     image: redis:7.2
     ports:
       - "6379:6379"
 
-
   worker:
     <<: *web
-    entrypoint: ./docker/entrypoints/worker-entrypoint.sh
+    entrypoint: /docker/entrypoints/worker-entrypoint.sh
     ports:
       - "8000:8000"
     environment:
@@ -61,12 +59,11 @@ services:
 
   scheduler:
     <<: *web
-    entrypoint: []
+    entrypoint: /docker/entrypoints/worker-scheduler-entrypoint.sh
     depends_on:
       - db
       - redis
       - worker
-    command: rake environment resque:scheduler RAILS_ENV=$RAILS_ENV
     ports: [ ]
     environment:
       - RAILS_ENV=development
@@ -79,7 +76,7 @@ services:
       args:
         USER_ID: ${USER_ID:-0}
         GROUP_ID: ${GROUP_ID:-0}
-    command: ruby app.rb -o 0.0.0.0
+    entrypoint: /docker/entrypoints/externalnotes-entrypoint.sh
     ports:
       - "4567:4567"
     volumes:

@@ -16,12 +16,21 @@ RUN apt-get update -qq && \
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y redis-tools
 
-COPY Gemfile* /usr/src/app/
+COPY ./notes/Gemfile* /usr/src/app/
+
+COPY ./docker/entrypoints/web-entrypoint.sh /docker/entrypoints/web-entrypoint.sh
+COPY ./docker/entrypoints/worker-entrypoint.sh /docker/entrypoints/worker-entrypoint.sh
+COPY ./docker/entrypoints/worker-scheduler-entrypoint.sh /docker/entrypoints/worker-scheduler-entrypoint.sh
+RUN chmod +x /docker/entrypoints/web-entrypoint.sh
+RUN chmod +x /docker/entrypoints/worker-entrypoint.sh
+RUN chmod +x /docker/entrypoints/worker-scheduler-entrypoint.sh
+RUN chown ${USER}:${GROUP} -R docker/entrypoints/
+
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app/
+COPY ./notes /usr/src/app/
 RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
-USER appuser
+USER ${USER}
 
 RUN bundle install

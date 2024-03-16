@@ -1,3 +1,5 @@
+require "faker"
+
 class NotesObtainer
   def execute
     notes
