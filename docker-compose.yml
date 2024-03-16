@@ -38,10 +38,21 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     volumes:
       - db-data:/var/lib/mysql
-      - ./docker/entrypoints/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/entrypoints/docker-entrypoint-initdb.d/db-init.sh:/docker-entrypoint-initdb.d/db-init.sh
     env_file:
       - docker/.env/development/db
       - docker/.env/test/db
+
+  mongodb:
+    image: mongo:7.0
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db-data:/data/db
+      - ./docker/entrypoints/docker-entrypoint-initdb.d/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    env_file:
+      - docker/.env/development/mongodb
 
   redis:
     image: redis:7.2
@@ -84,3 +95,4 @@ services:
 
 volumes:
   db-data:
+  mongo-db-data:
