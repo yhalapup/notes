@@ -1,4 +1,6 @@
 class Utils::Pagination::Handler
+  DEFAULT_PER_PAGE = 10
+
   def initialize(scope:, page:, path:)
     @scope = scope
     @page = page
@@ -14,9 +16,5 @@ class Utils::Pagination::Handler
 
   def records
     @records ||= @scope.page(@page).per(default_per_page)
-  end
-
-  def default_per_page
-    2
   end
 end
