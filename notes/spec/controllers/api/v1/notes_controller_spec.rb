@@ -210,7 +210,7 @@ RSpec.describe Api::V1::NotesController, type: :controller do
 
   describe "GET #search" do
     let(:result) { get :search, params: params }
-    let(:params) { { title: "", content: "text" } }
+    let(:params) { { query: "text" } }
 
     before do
       first_note

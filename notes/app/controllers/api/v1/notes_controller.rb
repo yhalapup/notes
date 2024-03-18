@@ -51,7 +51,7 @@ class Api::V1::NotesController < ApplicationController
   end
 
   def search_params
-    params.permit(:title, :content)
+    params.permit(:query)
           .to_h
           .deep_symbolize_keys
   end

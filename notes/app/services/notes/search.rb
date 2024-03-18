@@ -1,10 +1,11 @@
 class Notes::Search
-  def initialize(title:, content:)
-    @title = title
-    @content = content
+  def initialize(query:)
+    @query = query.presence
   end
 
   def execute
-    Note.where("LOWER(title) LIKE ? OR LOWER(content) LIKE ?", "%#{@title.downcase}%", "%#{@content.downcase}%")
+    return [] if @query.nil?
+
+    Note.where("LOWER(title) OR LOWER(content) LIKE ?", "%#{@query.downcase}%" )
   end
 end
