@@ -7,3 +7,13 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+if Rails.env.development?
+  Note.destroy_all
+
+  15.times do |index|
+    Note.create!(title: "title #{index}", content: "text #{index}")
+  end
+
+  puts "Created #{Note.count} notes"
+end
