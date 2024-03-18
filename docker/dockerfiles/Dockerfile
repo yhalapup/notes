@@ -13,9 +13,6 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git libvips pkg-config
 
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y redis-tools
-
 COPY ./notes/Gemfile* /usr/src/app/
 
 COPY ./docker/entrypoints/web-entrypoint.sh /docker/entrypoints/web-entrypoint.sh

@@ -22,10 +22,7 @@ services:
       - docker/.env/development/web
       - docker/.env/development/db
       - docker/.env/development/mongodb
-      - docker/.env/test/db
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379
+      - docker/.env/development/redis
 
   db:
     build:
@@ -43,7 +40,6 @@ services:
       - ./docker/entrypoints/docker-entrypoint-initdb.d/db-init.sh:/docker-entrypoint-initdb.d/db-init.sh
     env_file:
       - docker/.env/development/db
-      - docker/.env/test/db
 
   mongodb:
     image: mongo:7.0
@@ -67,9 +63,6 @@ services:
     entrypoint: /docker/entrypoints/worker-entrypoint.sh
     ports:
       - "8000:8000"
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379
 
   scheduler:
     <<: *web
@@ -79,9 +72,6 @@ services:
       - redis
       - worker
     ports: [ ]
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379
 
   externalnotes:
     build:
@@ -117,9 +107,6 @@ services:
       - mongodb
     env_file:
       - docker/.env/development/mongodb
-
-
-
 
 volumes:
   db-data:
