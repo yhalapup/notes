@@ -3,11 +3,15 @@ require "rails_helper"
 RSpec.describe Api::V1::NotesController, type: :controller do
   let(:first_note) { create(:note, title: "First note", content: "text") }
   let(:second_note) { create(:note, title: "Second note", content: "other text") }
-  let(:third_note) { create(:note, title: "Third note", content: "other text") }
+  let(:third_note) { create(:note, title: "Third note", content: "other") }
 
   let(:response_body) { result.body }
   let(:json) { JSON.parse(response_body) }
-  let(:json_data) { json["data"].deep_symbolize_keys }
+  let(:json_data) { json["data"] }
+
+  before do
+    stub_const("Pagination::Handler::DEFAULT_PER_PAGE", 2)
+  end
 
   describe "GET #index" do
     let(:result) { get :index, params: params }
@@ -47,9 +51,9 @@ RSpec.describe Api::V1::NotesController, type: :controller do
       end
 
       it "provides JSON data" do
-        expect(json_data[:attributes]).to include(title: "First note", content: "text")
-        expect(json_data.keys.sort).to eq(%i[attributes id type])
-        expect(json_data[:attributes].keys.sort).to eq(%i[content created-at title updated-at])
+        expect(json_data["attributes"]).to include("title"=>"First note", "content"=>"text")
+        expect(json_data.keys.sort).to eq(%w[attributes id type])
+        expect(json_data["attributes"].keys.sort).to eq(["content", "created-at", "title", "updated-at"])
       end
     end
 
@@ -129,9 +133,9 @@ RSpec.describe Api::V1::NotesController, type: :controller do
         end
 
         it "provides JSON data" do
-          expect(json_data[:attributes]).to include(title: "updated title", content: "updated content")
-          expect(json_data.keys.sort).to eq(%i[attributes id type])
-          expect(json_data[:attributes].keys.sort).to eq(%i[content created-at title updated-at])
+          expect(json_data["attributes"]).to include("title" => "updated title", "content" => "updated content")
+          expect(json_data.keys.sort).to eq(["attributes", "id", "type"])
+          expect(json_data["attributes"].keys.sort).to eq(["content", "created-at", "title", "updated-at"])
         end
       end
 
@@ -220,6 +224,32 @@ RSpec.describe Api::V1::NotesController, type: :controller do
 
     it "responds with proper status 200" do
       expect(result.status).to eq(200)
+    end
+
+    context "when query is empty" do
+      let(:params) { { query: "" } }
+
+      it "returns empty array" do
+        expect(json["data"]).to eq([])
+      end
+    end
+
+    context "when the search is successful" do
+      let(:params) { { query: "First" } }
+
+      it "returns 1 record" do
+        expect(json_data.size).to eq(1)
+        expect(json["meta"]["totalPages"]).to eq(1)
+      end
+    end
+
+    context "search is case insensitive" do
+      let(:params) {{ query: "TEXT" }}
+
+      it "returns 3 records" do
+        expect(json_data.size).to eq(2)
+        expect(json["meta"]["totalPages"]).to eq(1)
+      end
     end
   end
 end
