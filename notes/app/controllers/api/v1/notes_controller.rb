@@ -2,7 +2,7 @@ class Api::V1::NotesController < ApplicationController
   before_action :current_record, only: %i[show update destroy]
 
   def index
-    records, links, total_pages = Utils::Pagination::Handler.new(**pagination_params).execute
+    records, links, total_pages = Pagination::Handler.new(**pagination_params).execute
 
     render json: NotesRepresenter.for_collection.prepare(records).to_hash.merge(total_pages, links)
   end
@@ -27,8 +27,8 @@ class Api::V1::NotesController < ApplicationController
   end
 
   def search
-    Notes::Search.new(**search_params).execute
-    records, links, total_pages = Utils::Pagination::Handler.new(**pagination_params).execute
+    params[:scope] = Notes::Search.new(**search_params).execute
+    records, links, total_pages = Pagination::Handler.new(**pagination_after_search_params).execute
 
     render json: NotesRepresenter.for_collection.prepare(records).to_hash.merge(total_pages, links)
   end
@@ -54,5 +54,11 @@ class Api::V1::NotesController < ApplicationController
     params.permit(:query)
           .to_h
           .deep_symbolize_keys
+  end
+
+  def pagination_after_search_params
+    ActionController::Parameters.new(
+      pagination_params.merge!(scope: params[:scope]
+      ))&.permit!&.to_h.symbolize_keys
   end
 end

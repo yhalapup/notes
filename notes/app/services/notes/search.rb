@@ -4,8 +4,8 @@ class Notes::Search
   end
 
   def execute
-    return [] if @query.nil?
+    return Note.none if @query.nil?
 
-    Note.where("LOWER(title) OR LOWER(content) LIKE ?", "%#{@query.downcase}%" )
+    Note.where("title like ?", "%#{@query}%").or(Note.where("content like ?", "%#{@query}%")).distinct
   end
 end

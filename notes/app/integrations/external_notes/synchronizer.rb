@@ -3,16 +3,11 @@ class ExternalNotes::Synchronizer
   end
 
   def execute
-    external_notes = parse_fetch_request_external_notes
+    external_notes = ExternalNotes::Notes::ListFetcher.new.execute
     save_external_notes_in_database(external_notes)
   end
 
   private
-
-  def parse_fetch_request_external_notes
-    response =  ExternalNotes::Api::Client.new.get(path: "notes")
-    JSON.parse(response.body)
-  end
 
   def save_external_notes_in_database(external_notes)
     external_notes.each do |external_note|

@@ -1,4 +1,4 @@
-class Utils::Pagination::Jsonapi
+class Pagination::JsonApi
   def initialize(records:, page:, path:)
     @records = records
     @page = page

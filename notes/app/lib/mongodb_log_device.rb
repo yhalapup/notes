@@ -23,10 +23,6 @@ class MongodbLogDevice
     @collection.create
   end
 
-  def get_collection_object
-
-  end
-
   def access_collection
     collection_name = "notes_application_logs"
     options   = {

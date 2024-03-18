@@ -1,4 +1,4 @@
-class Utils::Pagination::Handler
+class Pagination::Handler
   DEFAULT_PER_PAGE = 10
 
   def initialize(scope:, page:, path:)
@@ -8,13 +8,13 @@ class Utils::Pagination::Handler
   end
 
   def execute
-    total_pages, links = Utils::Pagination::Jsonapi.new(records:, page: @page, path: @path).execute
+    total_pages, links = Pagination::JsonApi.new(records:, page: @page, path: @path).execute
     [records, total_pages, links]
   end
 
   private
 
   def records
-    @records ||= @scope.page(@page).per(default_per_page)
+    @records ||= @scope.page(@page).per(DEFAULT_PER_PAGE)
   end
 end
