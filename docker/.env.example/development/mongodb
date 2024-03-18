@@ -1,0 +1,9 @@
+MONGO_DATABASE_HOST=mongodb:27017
+MONGO_INITDB_ROOT_USERNAME=exampleadmin
+MONGO_INITDB_ROOT_PASSWORD=example_password
+MONGO_INITDB_DATABASE=mongo_db
+MONGO_USER=notes_example_user
+MONGO_PASSWORD=notes_example_password
+MONGO_DB=notes_logs_db
+
+ME_CONFIG_MONGODB_URL=mongodb://exampleadmin:example_password@mongodb:27017/

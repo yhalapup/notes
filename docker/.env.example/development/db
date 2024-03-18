@@ -1,0 +1,7 @@
+MYSQL_ROOT_PASSWORD=rootexample_password
+MYSQL_DATABASE=notes_example_db
+MYSQL_USER=notes_example_user
+MYSQL_PASSWORD=notes_example_password
+MYSQL_TEST_DATABASE=notes_example_test_db
+MYSQL_TEST_USER=notes_example_test_user
+MYSQL_TEST_PASSWORD=notes_example_test_password
