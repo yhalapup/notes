@@ -12,6 +12,7 @@ services:
     entrypoint: /docker/entrypoints/web-entrypoint.sh
     depends_on:
       - db
+      - mongodb
       - redis
     ports:
       - "3000:3000"
@@ -20,6 +21,7 @@ services:
     env_file:
       - docker/.env/development/web
       - docker/.env/development/db
+      - docker/.env/development/mongodb
       - docker/.env/test/db
     environment:
       - RAILS_ENV=development
@@ -45,6 +47,7 @@ services:
 
   mongodb:
     image: mongo:7.0
+    container_name: mongodb
     restart: always
     ports:
       - "27017:27017"
@@ -92,6 +95,19 @@ services:
       - "4567:4567"
     volumes:
       - ./externalnotes:/usr/src/app
+
+  mongodb-ui:
+    image: mongo-express:1.0.2
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb
+    env_file:
+      - docker/.env/development/mongodb
+
+
+
 
 volumes:
   db-data:
