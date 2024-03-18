@@ -47,3 +47,7 @@ Style/HashSyntax:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Rails/BulkChangeTable:
+  Exclude:
+    - "db/migrate/20240314163352_add_external_note_fk_to_notes.rb"

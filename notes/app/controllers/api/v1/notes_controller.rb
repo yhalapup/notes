@@ -58,7 +58,7 @@ class Api::V1::NotesController < ApplicationController
 
   def pagination_after_search_params
     ActionController::Parameters.new(
-      pagination_params.merge!(scope: params[:scope]
-      ))&.permit!&.to_h.symbolize_keys
+      pagination_params.merge!(scope: params[:scope])
+    )&.permit!&.to_h&.symbolize_keys
   end
 end

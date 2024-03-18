@@ -51,9 +51,9 @@ RSpec.describe Api::V1::NotesController, type: :controller do
       end
 
       it "provides JSON data" do
-        expect(json_data["attributes"]).to include("title"=>"First note", "content"=>"text")
+        expect(json_data["attributes"]).to include("title" => "First note", "content" => "text")
         expect(json_data.keys.sort).to eq(%w[attributes id type])
-        expect(json_data["attributes"].keys.sort).to eq(["content", "created-at", "title", "updated-at"])
+        expect(json_data["attributes"].keys.sort).to eq(%w[content created-at title updated-at])
       end
     end
 
@@ -134,8 +134,8 @@ RSpec.describe Api::V1::NotesController, type: :controller do
 
         it "provides JSON data" do
           expect(json_data["attributes"]).to include("title" => "updated title", "content" => "updated content")
-          expect(json_data.keys.sort).to eq(["attributes", "id", "type"])
-          expect(json_data["attributes"].keys.sort).to eq(["content", "created-at", "title", "updated-at"])
+          expect(json_data.keys.sort).to eq(%w[attributes id type])
+          expect(json_data["attributes"].keys.sort).to eq(%w[content created-at title updated-at])
         end
       end
 
@@ -244,7 +244,7 @@ RSpec.describe Api::V1::NotesController, type: :controller do
     end
 
     context "search is case insensitive" do
-      let(:params) {{ query: "TEXT" }}
+      let(:params) { { query: "TEXT" } }
 
       it "returns 3 records" do
         expect(json_data.size).to eq(2)

@@ -1,7 +1,4 @@
 class ExternalNotes::Synchronizer
-  def initialize
-  end
-
   def execute
     external_notes = ExternalNotes::Notes::ListFetcher.new.execute
     save_external_notes_in_database(external_notes)

@@ -12,7 +12,6 @@ RSpec.describe Cron::ExternalNotes::SynchronizerJob do
           .to_return(status: 200, body: fetch_notes_payload)
       end
 
-
       before do
         fetch_notes_request_stub
       end

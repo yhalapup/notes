@@ -17,13 +17,12 @@ namespace :resque do
     # Note: This feature is only available in >=2.0.0.
     # Resque::Scheduler.dynamic = true
 
-
     # Configuration for resque scheduler
     Resque::Scheduler.configure do |c|
       c.quiet = false
       c.verbose = true
       c.logfile = nil # meaning all messages go to $stdout
-      c.logformat = 'text'
+      c.logformat = "text"
     end
     # The schedule doesn"t need to be stored in a YAML, it just needs to
     # be a hash.  YAML is usually the easiest.

@@ -1,11 +1,8 @@
 class ExternalNotes::Api::Client
   BASE_URL = "http://externalnotes:4567".freeze
 
-  def initialize
-  end
-
-  def get(path:, params:{}, headers: {})
-    client.public_send("get", path, params, headers)
+  def get(path:, params: {}, headers: {})
+    client.public_send(:get, path, params, headers)
   end
 
   private

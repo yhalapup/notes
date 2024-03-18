@@ -10,12 +10,11 @@ class MongodbLogDevice
     @collection.insert_one(message)
   end
 
-  def reopen(log = nil)
+  def reopen(_log = nil)
     access_collection
   end
 
-  def close
-  end
+  def close; end
 
   private
 
@@ -25,9 +24,9 @@ class MongodbLogDevice
 
   def access_collection
     collection_name = "notes_application_logs"
-    options   = {
+    options = {
       capped: true,
-      size: 1024*1024
+      size: 1024 * 1024
     }
     @collection = @client[collection_name, options]
   end
