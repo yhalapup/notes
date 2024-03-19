@@ -17,6 +17,8 @@ WORKDIR /usr/src/app
 COPY ./notesconsumer /usr/src/app
 RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
-RUN chmod +x ./scripts/curl/*.sh
+RUN chmod +x ./*.sh
 
 USER ${USER}
+
+RUN npm install

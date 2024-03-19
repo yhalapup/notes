@@ -8,14 +8,6 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-axios.get(url, { headers })
-  .then(response => {
-    console.log('Response:', response.data);
-  })
-  .catch(error => {
-    console.error('Error:', error.message);
-  });
-
 // POST request with data
 const postData = {
   note: {

@@ -97,6 +97,7 @@ services:
     stdin_open: true
     volumes:
       - ./notesconsumer:/usr/src/app
+      - /usr/src/app/node_modules
 
   mongodb-ui:
     image: mongo-express:1.0.2
