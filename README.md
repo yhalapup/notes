@@ -5,56 +5,36 @@
 
 ### Prerequisites
 
-The following software must be installed:
+The following  must be installed:
 - **docker**              (must docker 25 or newer)
 - **docker compose**      (must be docker compose v2  [Check more in detail](https://docs.docker.com/compose/migrate/)) 
-
-The following packages must be installed:
 - **git**
 - **make**
 
 ### Instructions
 
-1.  To download the project, use one of the following command:
-    ```bash
-    git clone git@github.com:yhalapup/notes.git 
-    ```
-    or
-    ```bash
-    git clone https://github.com/yhalapup/notes.git
-    ```
+1.  To download the project, use `git clone`
 
 ***
 All the following commands use inside the root project directory
 ***
 
-2. To run inside docker from current host user:
+2.  Create necessary configuration for project setup:
 
-   ```bash
-   id
-   ```
-   It shows the current user id and group id.
+```bash
+cp .env.example .env
+cp -r docker/.env.example/ docker/.env
+```
 
-   ```bash
-   cp .env.example .env
-   ```
-   Change the file according to corresponding USER_ID and GROUP_ID
-
-3. Add configuration for docker compose:
-   ```bash
-   cp -r docker/.env.example/ docker/.env
-   ```
-   Don't change values in this configuration.
-
-4. Start docker services, using the command:
-    ```bash
-   make up 
-   ```
-   Check in other terminal that services started.
-   ```bash
-   docker compose ps
-   ```
-   An output similar to the following is expected:
+3. Start docker services, using the command:
+ ```bash
+make up 
+```
+Check in other terminal that services started.
+```bash
+docker compose ps
+```
+An output similar to the following is expected:
    ```bash
     NAME                    IMAGE                 COMMAND                  SERVICE         CREATED          STATUS          PORTS
     mongodb                 mongo:7.0             "docker-entrypoint.s…"   mongodb         53 seconds ago   Up 51 seconds   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp
@@ -69,22 +49,22 @@ All the following commands use inside the root project directory
    ```
 
 5. Run database migrations:
-   ```bash
-   make dbmigrate
-   ``` 
+```bash
+make dbmigrate
+``` 
 6. To seed the database, run the following command:
-   ```bash
-   make dbseed
-   ``` 
+```bash
+make dbseed
+``` 
 
 ### Useful commands
 
 To run Rspec tests, run the following command:
-   ```bash
-   make rspec
-   ```
+```bash
+make rspec
+```
 
 To run RSpec tests and generate test coverage, run the following command:
-   ```bash
-   make rspec-coverage
-   ```
+```bash
+make rspec-coverage
+```
