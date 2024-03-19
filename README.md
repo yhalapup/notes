@@ -149,7 +149,7 @@ make rspec-coverage
 
 1. Visit the following url http://localhost:3000/api/v1/notes/
 
-![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/rails_works.png)
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/rails_application_works.png)
 
 Rails application works
 
