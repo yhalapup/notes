@@ -11,9 +11,12 @@
 if Rails.env.development?
   Note.destroy_all
 
+  notes = []
   15.times do |index|
-    Note.create!(title: "title #{index}", content: "text #{index}")
+    notes << { title: "title #{index}", content: "text #{index}" }
   end
+
+  Note.create!(notes)
 
   puts "Created #{Note.count} notes"
 end
