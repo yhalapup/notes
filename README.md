@@ -1,8 +1,19 @@
 # Notes
 ***
+
+- [Overview](#overview)
+    - [Built With](#built-with)
+    - [Structure](#structure)
+- [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Useful commands](#useful-commands)
+- [Result](#result)
+    - [Steps to check results](#steps-to-check-results)
+
 ## Overview
 
-### Technological stack
+### Built with
 
 Notes project uses such technologies:
 - Ruby 3.2
@@ -74,7 +85,7 @@ The following  must be installed:
 - **git**
 - **make**
 
-### Instructions
+### Setup
 
 1.  To download the project, use `git clone`
 
@@ -131,3 +142,37 @@ To run RSpec tests and generate test coverage, run the following command:
 ```bash
 make rspec-coverage
 ```
+
+## Result
+
+### Steps to check results
+
+1. Visit the following url http://localhost:3000/api/v1/notes/
+
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/rails_works.png)
+
+Rails application works
+
+2. Visit the following url http://localhost:8000/stats/resque
+
+Background job processing works
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/background_job_processing_works.png)
+
+
+3. Visit the following url http://localhost:4567/notes
+
+External service used for retrieving notes works
+
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/external_mock_service.png)
+
+4. Visit the following url http://localhost:8081/db/notes_logs_db/notes_application_logs
+
+Credentials are admin, pass
+
+Storing logs to MongoDB works
+
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/mongo_admin.png)
+
+5. Test coverage 92%
+
+![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/coverage_report.png)
