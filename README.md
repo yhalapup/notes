@@ -1,7 +1,70 @@
-# Notes app
+# Notes
 ***
+## Overview
 
-## Setup
+### Technological stack
+
+Notes project uses such technologies:
+- Ruby 3.2
+- Rails 7.1
+- Sinatra 4.0
+- Node 20
+- MySQL 8.0
+- MongoDB 7.0
+- Redis 7.2
+- Mongo Express 1.0
+- resque, resque-scheduler 
+- Docker 
+- Docker Compose
+- Makefile
+
+### Structure
+
+Project consists from 9 services:
+
+1. `web`
+
+Ruby / Ruby on Rails simplified backend service for a note-taking application.
+It can retrieve notes from other notes service called `externalnotes`.
+
+2. `externalnotes`
+
+Ruby / Sinatra simplified backend service that has one endpoint to show the latest notes.
+It always return a list of notes.
+It does not use any storage service, it just generate fake note using gem `faker` and returns them in json.
+
+3. `notesconsumer`
+
+Node.js service used as consumer of `web` service.
+It has curl scripts and Node.js scripts to demonstrate how a separate service could consume `web` service.
+
+4. `db`
+
+MySQL database used as storage of data for `web` service.
+
+5. `worker`
+
+Service for background job processing. It used gem `resque`.
+
+6. `scheduler`
+
+Service for background job scheduling system.
+It uses gem `resque-scheduler`.
+
+7. `redis`
+
+Data store used by `worker` service.
+
+8. `mongodb`
+
+MongoDB database used for storing logs of all API requests `web` service.
+
+9. `mongodb-ui`
+
+MongoDB admin interface that helps to visually check data from MongoDb database, 
+view records, query records for monitoring or debugging purposes.
+
+## Installation
 
 ### Prerequisites
 
