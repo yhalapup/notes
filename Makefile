@@ -1,15 +1,12 @@
-.PHONY: up down
-
-up:
-	@docker compose up
-
-down:
-	@docker compose down
+.PHONY: clean down dbmigrate dbseed rspec rspec-coverage up
 
 clean:
 	@docker compose down
 	@docker volume prune -af
 	@docker system prune -af
+
+down:
+	@docker compose down
 
 dbmigrate:
 	@docker compose exec web bash -c "rails db:migrate RAILS_ENV=development"
@@ -23,3 +20,6 @@ rspec:
 
 rspec-coverage:
 	@docker compose exec web bash -c "ENABLE_COVERAGE=true RAILS_ENV=test rspec spec"
+
+up:
+	@docker compose up
