@@ -28,6 +28,8 @@ WORKDIR /usr/src/app
 COPY ./notes /usr/src/app/
 RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
+RUN chown ${USER}:${GROUP} -R /usr/local/bundle
+
 USER ${USER}
 
 RUN bundle install
