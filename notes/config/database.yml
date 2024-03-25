@@ -21,12 +21,10 @@ default: &default
 
 development:
   <<: *default
-  database: notes_development
 
 test:
   <<: *default
-  database: notes_test
+  database:  <%= ENV.fetch('MYSQL_TEST_DATABASE', 'notes_test') %>
 
 production:
   <<: *default
-  database:  ENV.fetch('MYSQL_DATABASE', 'notes_production')
