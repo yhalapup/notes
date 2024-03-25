@@ -1,5 +1,4 @@
 name: "notes"
-
 on:
   pull_request:
     branches: ["main"]
@@ -15,21 +14,18 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: notes_test
-          MYSQL_USER: notes_test_user
-          MYSQL_PASSWORD: notes_test_password
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: test_database
         ports:
           - "3306:3306"
     env:
       RAILS_ENV: test
-      MYSQL_DATABASE: notes_test
-      MYSQL_USER: notes_test_user
-      MYSQL_PASSWORD: notes_test_password
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
       DATABASE_HOST: 127.0.0.1
     steps:
       - uses: actions/checkout@v2
-      - name: Echo ci environment variable
-        run: echo $CI
       - name: Setup Ruby 3.2
         uses: ruby/setup-ruby@v1
         with:
