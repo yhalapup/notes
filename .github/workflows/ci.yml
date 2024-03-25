@@ -28,6 +28,8 @@ jobs:
       DATABASE_HOST: 127.0.0.1
     steps:
       - uses: actions/checkout@v2
+      - name: Echo ci environment variable
+        run: echo $CI
       - name: Setup Ruby 3.2
         uses: ruby/setup-ruby@v1
         with:
