@@ -23,6 +23,7 @@ jobs:
       RAILS_ENV: ci
       MYSQL_DATABASE: test_database
       MYSQL_USER: root
+      MYSQL_PASSWORD:
       DATABASE_HOST: 127.0.0.1
     steps:
       - uses: actions/checkout@v2
