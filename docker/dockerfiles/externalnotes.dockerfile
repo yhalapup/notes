@@ -27,4 +27,4 @@ RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
 USER ${USER}
 
-RUN bundle install
+RUN bundle install --jobs 4 --retry 3

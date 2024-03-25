@@ -32,4 +32,4 @@ RUN chown ${USER}:${GROUP} -R /usr/local/bundle
 
 USER ${USER}
 
-RUN bundle install
+RUN bundle install --jobs 4 --retry 3
