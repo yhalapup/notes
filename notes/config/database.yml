@@ -21,19 +21,12 @@ default: &default
 
 development:
   <<: *default
+  database: notes_development
 
 test:
-  adapter: mysql2
-  encoding: utf8mb4
-  collation: utf8mb4_unicode_ci
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch('DATABASE_HOST') %>
-  database:  <%= ENV.fetch('MYSQL_TEST_DATABASE') %>
-  username:  <%= ENV.fetch('MYSQL_TEST_USER') %>
-  password:  <%= ENV.fetch('MYSQL_TEST_PASSWORD') %>
-
-ci:
   <<: *default
+  database: notes_test
 
 production:
   <<: *default
+  database:  ENV.fetch('MYSQL_DATABASE', 'notes_production')
