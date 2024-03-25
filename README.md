@@ -178,12 +178,12 @@ Storing logs to MongoDB works
 
 ![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/mongo_admin.png)
 
-6. Visit the following url http://localhost:8080
+5. Visit the following url http://localhost:8080
 
 Notes API documentation works
 
 ![apidocumentation.png](./documentation/images/apidocumentation.png)
 
-7. Test coverage 92%
+6. Test coverage 92%
 
 ![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/coverage_report.png)
