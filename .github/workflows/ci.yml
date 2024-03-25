@@ -36,6 +36,6 @@ jobs:
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
       - name: Setup database
-        run: RAILS_ENV=test bundle exec rails db:create --trace
+        run: bundle exec rails db:create --trace
       - name: Run tests
-        run: RAILS_ENV=test bundle exec rspec spec
+        run: bundle exec rspec spec
