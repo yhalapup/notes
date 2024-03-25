@@ -15,16 +15,15 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: test_database
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_USER: database_user
-          MYSQL_PASSWORD:
+          MYSQL_DATABASE: test_database
         ports:
           - "3306:3306"
     env:
       RAILS_ENV: ci
-      DATABASE_PORT: 3306
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: root
+      DATABASE_HOST: 127.0.0.1
     steps:
       - uses: actions/checkout@v2
       - name: Setup Ruby 3.2
