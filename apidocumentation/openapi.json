@@ -1,0 +1,503 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Notes API",
+    "version": "",
+    "description": "# General information\n\nSimplified backend service for a note-taking application\n\n\n# API Error Messages\n \n\n\n ## Parameters\n \n| name          | type     | description                                                                 | note       |\n|-------------  |--------  |---------------------------------------------------------------------------  |----------  |\n| status        | number   | Contains dedicated http status code   | required |\n| errors   | array   |  Contains list of errors                                              | required   |\n\n\n## Payload Example: 404\n\n```json\n{\"errors\":[{\"detail\":\"Record not found\"}],\"status\":404}\n```\n\n## Payload Example: 400\n\n```json\n{\"errors\":[{\"detail\":\"Title is too long (maximum is 50 characters)\"},{\"detail\":\"Content can't be blank\"},{\"detail\":\"Content is too short (minimum is 1 character)\"}],\"status\":400}\n```\n\n \n\n"
+  },
+  "components": {
+    "responses": {},
+    "schemas": {
+      "NoteRequest": {
+        "type": "object",
+        "required": [
+          "note"
+        ],
+        "properties": {
+          "note": {
+            "type": "object",
+            "required": [
+              "title",
+              "content"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 50,
+                "example": "note"
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10000,
+                "example": "text"
+              }
+            }
+          }
+        }
+      },
+      "NoteResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "attributes",
+          "types"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NoteId"
+          },
+          "attributes": {
+            "type": "object",
+            "required": [
+              "title",
+              "content",
+              "created-at",
+              "updated-at"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 50,
+                "example": "note"
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10000,
+                "example": "text"
+              },
+              "created-at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2024-03-24T19:12:39.795Z"
+              },
+              "updated-at": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2024-03-24T19:12:39.795Z"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "notes"
+            ]
+          }
+        }
+      },
+      "NoteId": {
+        "description": "Note Id",
+        "type": "integer",
+        "format": "int64",
+        "minimum": 1,
+        "example": 1
+      },
+      "PageParameter": {
+        "type": "integer",
+        "format": "int64",
+        "minimum": 1,
+        "example": 1
+      },
+      "Links": {
+        "type": "object",
+        "required": [
+          "self",
+          "first",
+          "last",
+          "prev",
+          "next"
+        ],
+        "properties": {
+          "self": {
+            "type": "string",
+            "pattern": "^\\/api\\/v1\\/notes.*$",
+            "example": "/api/v1/notes?page=1"
+          },
+          "first": {
+            "type": "string",
+            "pattern": "^\\/api\\/v1\\/notes.*$",
+            "example": "/api/v1/notes?page=1"
+          },
+          "last": {
+            "type": "string",
+            "pattern": "^\\/api\\/v1\\/notes.*$",
+            "example": "/api/v1/notes?page=2"
+          },
+          "prev": {
+            "type": "string",
+            "pattern": "^\\/api\\/v1\\/notes.*$",
+            "example": "/api/v1/notes"
+          },
+          "next": {
+            "type": "string",
+            "pattern": "^\\/api\\/v1\\/notes.*$",
+            "example": "/api/v1/notes?page=2"
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "required": [
+          "totalPages"
+        ],
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "API CALLS",
+      "tags": [
+        "Notes"
+      ]
+    }
+  ],
+  "paths": {
+    "/api/v1/notes": {
+      "get": {
+        "description": "List notes",
+        "operationId": "Api::V1::NotesController#index",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page of list of notes",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PageParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/NoteResponse"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    },
+                    "mets": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "List notes",
+        "tags": [
+          "Notes"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/get_notes_list"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/get_notes_list.js"
+            }
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create new note",
+        "description": "Create new note",
+        "operationId": "Api::V1::NotesController#create",
+        "requestBody": {
+          "description": "Create new note",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            },
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/create_note"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/create_note.js"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/notes/{noteId}": {
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Find Note by ID",
+        "description": "Returns a single Note",
+        "operationId": "getNoteById",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/NoteId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/get_note"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/get_note.js"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Update an existing note",
+        "description": "Update an existing note by id",
+        "operationId": "Api::V1::NotesController#update",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/NoteId"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing note",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/update_note"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/update_note.js"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Deletes a Note",
+        "description": "Deletes a Note",
+        "operationId": "Api::V1::NotesController#destroy",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/NoteId"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/delete_note"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/delete_note.js"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/notes/search": {
+      "get": {
+        "description": "Finds notes by title or content",
+        "summary": "Finds notes by title or content",
+        "operationId": "Api::V1::NotesController#search",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page of list of notes",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PageParameter"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search values",
+            "required": false,
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/NoteResponse"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/Links"
+                    },
+                    "mets": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Notes"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "label": "curl",
+            "source": {
+              "$ref": "./codesamples/curl/search_notes"
+            }
+          },
+          {
+            "lang": "javascript",
+            "label": "node",
+            "source": {
+              "$ref": "./codesamples/node/search_notes.js"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "variables": {}
+    }
+  ],
+  "tags": [
+    {
+      "name": "Notes",
+      "description": "A note holds information about note."
+    }
+  ]
+}

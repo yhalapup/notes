@@ -1,0 +1,4 @@
+curl \
+-H 'Content-Type: application/json;charset=utf-8' \
+-X GET \
+-i "http://localhost:3000/api/v1/notes/1"

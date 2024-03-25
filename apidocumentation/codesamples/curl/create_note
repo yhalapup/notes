@@ -1,0 +1,13 @@
+curl \
+-H 'Content-Type: application/json;charset=utf-8' \
+-X POST \
+-i "${NOTES_BASE_URL}/api/v1/notes" \
+--data @- <<'DATA'
+{
+  "note":
+    {
+      "title": "title",
+      "content": "text"
+    }
+}
+DATA

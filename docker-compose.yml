@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
 
@@ -108,6 +108,20 @@ services:
     stdin_open: true
     volumes:
       - ./notesconsumer:/usr/src/app
+      - /usr/src/app/node_modules
+
+  apidocumentation:
+    build:
+      context: .
+      dockerfile: docker/dockerfiles/apidocumentation.dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+    entrypoint: /docker/entrypoints/apidocumentation-entrypoint.sh
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./apidocumentation:/usr/src/app
       - /usr/src/app/node_modules
 
   mongodb-ui:
