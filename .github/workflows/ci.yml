@@ -16,10 +16,10 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: test_database
+          MYSQL_TEST_DATABASE: test_database
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_USER: database_user
-          MYSQL_PASSWORD:
+          MYSQL_TEST_USER: database_user
+          MYSQL_TEST_PASSWORD:
         ports:
           - "3306:3306"
     env:
