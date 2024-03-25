@@ -8,15 +8,14 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-// POST request with data
-const postData = {
+const data = {
   note: {
-    title: "title created from script",
-    content: "content created from script"
+    title: "title",
+    content: "text"
   }
 };
 
-axios.post(url, postData, { headers })
+axios.post(url, data, { headers })
   .then(response => {
     console.log('Response:', response.data);
   })

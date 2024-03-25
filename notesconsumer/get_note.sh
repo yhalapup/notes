@@ -5,4 +5,4 @@ NOTES_BASE_URL=http://web:3000
 curl \
 -H 'Content-Type: application/json;charset=utf-8' \
 -X GET \
--i "${NOTES_BASE_URL}/api/v1/notes?page=1" \
+-i "${NOTES_BASE_URL}/api/v1/notes/1"
