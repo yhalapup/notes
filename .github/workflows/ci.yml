@@ -34,7 +34,7 @@ jobs:
           bundler-cache: true
       - name: Setup database
         run:
-          rails db:create
+          bin/rails db:create
       - name: Run tests
         run:
           rspec spec
