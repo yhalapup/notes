@@ -22,6 +22,7 @@ jobs:
     env:
       RAILS_ENV: test
       MYSQL_TEST_DATABASE: test_database
+      MYSQL_DATABASE: test_database
       MYSQL_USER: root
       MYSQL_PASSWORD:
       MYSQL_TEST_USER: root
