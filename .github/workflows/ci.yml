@@ -22,6 +22,7 @@ jobs:
     env:
       RAILS_ENV: test
       MYSQL_TEST_DATABASE: test_database
+      MYSQL_USER: root
       MYSQL_TEST_USER: root
       MYSQL_TEST_PASSWORD:
       DATABASE_HOST: 127.0.0.1
