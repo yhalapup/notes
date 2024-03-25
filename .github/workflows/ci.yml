@@ -1,0 +1,40 @@
+name: "notes"
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: github_actions_test
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_PASSWORD:
+        ports:
+          - "3306:3306"
+    env:
+      RAILS_ENV: test
+      DATABASE_PORT: 3306
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          files: notes
+      - name: Setup Ruby 3.2
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler: default
+          bundler-cache: true
+      - name: Setup database
+        run:
+          rails db:create
+      - name: Run tests
+        run:
+          rspec spec
