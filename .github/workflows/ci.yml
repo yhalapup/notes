@@ -16,14 +16,14 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_HOST: 127.0.0.1
-          MYSQL_TEST_DATABASE: test_database
+          MYSQL_DB: test_database
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_TEST_USER: database_user
-          MYSQL_TEST_PASSWORD:
+          MYSQL_USER: database_user
+          MYSQL_PASSWORD:
         ports:
           - "3306:3306"
     env:
-      RAILS_ENV: test
+      RAILS_ENV: ci
       DATABASE_PORT: 3306
     steps:
       - uses: actions/checkout@v2

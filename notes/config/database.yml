@@ -28,5 +28,8 @@ test:
   username:  <%= ENV.fetch('MYSQL_TEST_USER') %>
   password:  <%= ENV.fetch('MYSQL_TEST_PASSWORD') %>
 
+ci:
+  <<: *default
+
 production:
   <<: *default
