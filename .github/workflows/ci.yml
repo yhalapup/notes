@@ -6,10 +6,10 @@ on:
   push:
     branches: ["main"]
 jobs:
-  defaults:
-    run:
-      working-directory: notes
   test:
+    defaults:
+      run:
+        working-directory: notes
     runs-on: ubuntu-22.04
     services:
       mysql:
@@ -27,8 +27,6 @@ jobs:
       DATABASE_PORT: 3306
     steps:
       - uses: actions/checkout@v2
-        with:
-          files: notes
       - name: Setup Ruby 3.2
         uses: ruby/setup-ruby@v1
         with:
