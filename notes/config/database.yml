@@ -24,9 +24,12 @@ development:
 
 test:
   <<: *default
+  <% unless ENV['CI'] %>
   username:  <%= ENV.fetch('MYSQL_TEST_USER', 'notes_test_user') %>
-  password: <%= ENV.fetch('MYSQL_PASSWORD', 'notes_test_password') %>
+  password: <%= ENV.fetch('MYSQL_TEST_PASSWORD', 'notes_test_password') %>
   database:  <%= ENV.fetch('MYSQL_TEST_DATABASE', 'notes_test') %>
+  <% end %>
+
 
 production:
   <<: *default
