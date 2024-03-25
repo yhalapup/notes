@@ -75,6 +75,10 @@ MongoDB database used for storing logs of all API requests `web` service.
 MongoDB admin interface that helps to visually check data from MongoDb database, 
 view records, query records for monitoring or debugging purposes.
 
+10. `apidocumentation`
+
+API documentation for Notes API.
+
 ## Installation
 
 ### Prerequisites
@@ -109,18 +113,19 @@ Check in other terminal that services started.
 docker compose ps
 ```
 An output similar to the following is expected:
-   ```bash
-    NAME                    IMAGE                 COMMAND                  SERVICE         CREATED          STATUS          PORTS
-    mongodb                 mongo:7.0             "docker-entrypoint.s…"   mongodb         53 seconds ago   Up 51 seconds   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp
-    notes-db-1              notes-db              "docker-entrypoint.s…"   db              53 seconds ago   Up 51 seconds   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp
-    notes-externalnotes-1   notes-externalnotes   "/docker/entrypoints…"   externalnotes   53 seconds ago   Up 51 seconds   0.0.0.0:4567->4567/tcp, :::4567->4567/tcp
-    notes-mongodb-ui-1      mongo-express:1.0.2   "/sbin/tini -- /dock…"   mongodb-ui      53 seconds ago   Up 51 seconds   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp
-    notes-notesconsumer-1   notes-notesconsumer   "docker-entrypoint.s…"   notesconsumer   53 seconds ago   Up 51 seconds   
-    notes-redis-1           redis:7.2             "docker-entrypoint.s…"   redis           53 seconds ago   Up 51 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp
-    notes-scheduler-1       notes-scheduler       "/docker/entrypoints…"   scheduler       53 seconds ago   Up 51 seconds   
-    notes-web-1             notes-web             "/docker/entrypoints…"   web             53 seconds ago   Up 51 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp
-    notes-worker-1          notes-worker          "/docker/entrypoints…"   worker          53 seconds ago   Up 51 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp
-   ```
+```bash
+NAME                       IMAGE                    COMMAND                  SERVICE            CREATED          STATUS          PORTS
+mongodb                    mongo:7.0                "docker-entrypoint.s…"   mongodb            19 seconds ago   Up 17 seconds   0.0.0.0:27017->27017/tcp, :::27017->27017/tcp
+notes-apidocumentation-1   notes-apidocumentation   "/docker/entrypoints…"   apidocumentation   19 seconds ago   Up 17 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp
+notes-db-1                 notes-db                 "docker-entrypoint.s…"   db                 19 seconds ago   Up 17 seconds   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp
+notes-externalnotes-1      notes-externalnotes      "/docker/entrypoints…"   externalnotes      19 seconds ago   Up 17 seconds   0.0.0.0:4567->4567/tcp, :::4567->4567/tcp
+notes-mongodb-ui-1         mongo-express:1.0.2      "/sbin/tini -- /dock…"   mongodb-ui         19 seconds ago   Up 17 seconds   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp
+notes-notesconsumer-1      notes-notesconsumer      "docker-entrypoint.s…"   notesconsumer      19 seconds ago   Up 17 seconds   
+notes-redis-1              redis:7.2                "docker-entrypoint.s…"   redis              19 seconds ago   Up 17 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp
+notes-scheduler-1          notes-scheduler          "/docker/entrypoints…"   scheduler          18 seconds ago   Up 16 seconds   
+notes-web-1                notes-web                "/docker/entrypoints…"   web                19 seconds ago   Up 17 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp
+notes-worker-1             notes-worker             "/docker/entrypoints…"   worker             18 seconds ago   Up 16 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp
+```
 
 5. Run database migrations:
 ```bash
@@ -173,6 +178,12 @@ Storing logs to MongoDB works
 
 ![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/mongo_admin.png)
 
-5. Test coverage 92%
+6. Visit the following url http://localhost:8080
+
+Notes API documentation works
+
+![apidocumentation.png](./documentation/images/apidocumentation.png)
+
+7. Test coverage 92%
 
 ![Screenshot from 2024-03-19 21-17-26.png](./documentation/images/coverage_report.png)
