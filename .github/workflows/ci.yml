@@ -32,6 +32,8 @@ jobs:
           ruby-version: 3.2
           bundler: default
           bundler-cache: true
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
       - name: Setup database
         run: bundle exec rails db:create
       - name: Run tests
