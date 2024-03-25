@@ -1,3 +1,5 @@
+[![notes](https://github.com/yhalapup/notes/actions/workflows/ci.yml/badge.svg)](https://github.com/yhalapup/notes/actions/workflows/ci.yml)
+
 # Notes
 ***
 
