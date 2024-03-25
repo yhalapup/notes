@@ -21,9 +21,9 @@ jobs:
           - "3306:3306"
     env:
       RAILS_ENV: test
-      MYSQL_DATABASE: test_database
-      MYSQL_USER: root
-      MYSQL_PASSWORD:
+      MYSQL_DATABASE: notes_test
+      MYSQL_USER: notes_test_user
+      MYSQL_PASSWORD: notes_test_password
       DATABASE_HOST: 127.0.0.1
     steps:
       - uses: actions/checkout@v2
