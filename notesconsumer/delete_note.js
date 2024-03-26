@@ -11,6 +11,7 @@ const headers = {
 axios.delete(url, { headers })
   .then(response => {
     console.log('Response:', response.data);
+    console.log('Response status:', response.status)
   })
   .catch(error => {
     console.error('Error:', error.message);

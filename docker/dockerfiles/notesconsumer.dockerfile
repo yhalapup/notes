@@ -17,7 +17,7 @@ WORKDIR /usr/src/app
 COPY ./notesconsumer /usr/src/app
 RUN chown ${USER}:${GROUP} -R /usr/src/app/
 
-RUN chmod +x ./*.sh
+RUN chmod +x ./curl/*.sh
 
 USER ${USER}
 
