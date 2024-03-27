@@ -33,7 +33,7 @@ Notes project uses such technologies:
 
 ### Structure
 
-Project consists from 9 services:
+Project consists from 10 services:
 
 1. `web`
 
