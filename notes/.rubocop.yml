@@ -34,19 +34,23 @@ Style/FrozenStringLiteralComment:
 
 Metrics/AbcSize:
   Exclude:
-    - 'db/migrate/**/*'
-    - 'spec/support/**/*'
+    - "db/migrate/**/*"
+    - "spec/support/**/*"
+  
+Rails/Output:
+  Exclude:
+    - "db/seeds.rb"
 
 Rails/ResponseParsedBody:
   Enabled: false
 
 Style/HashSyntax:
   Exclude:
-    - 'spec/**/*'
+    - "spec/**/*"
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
+    - "spec/**/*"
 
 Rails/BulkChangeTable:
   Exclude:
